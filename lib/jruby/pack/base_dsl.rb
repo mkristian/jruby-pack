@@ -1,27 +1,27 @@
 #-*- mode: ruby -*-
 
-require 'jruby/pack/runnable_dsl'
-
 module JRuby
   module Pack
     class BaseDSL
 
-      def initialize( parent, &block )
-        @parent = parent
+      def initialize( root, &block )
+        @root = root
         instance_eval( &block ) if block
         apply
       end
 
+      attr_reader :root
+
       def apply
       end
 
-      def eval_pom( file )
+      def mavenfile( file )
         file = File.expand_path( "../#{file}", __FILE__ )
-        @parent.eval_pom( File.read( file ), file )
+        root.mavenfile( file )
       end
 
       def properties
-        @parent.model.properties
+        root.model.properties
       end
     end
   end

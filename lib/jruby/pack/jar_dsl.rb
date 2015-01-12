@@ -1,13 +1,18 @@
 #-*- mode: ruby -*-
 
 require 'jruby/pack/embedded_gems_dsl'
+require 'jruby/pack/jar_runnable_dsl'
 
 module JRuby
   module Pack
-    class PackItDSL < EmbeddedGemsDSL
+    class JarDSL < EmbeddedGemsDSL
 
-      def initialize( parent, &block )
+      def initialize( root, &block )
         super
+      end
+
+      def runnable( &block )
+        JarRunnableDSL.new( root, self, &block )
       end
 
       def config_ru( file = nil )
@@ -16,9 +21,7 @@ module JRuby
 
       def includes( *args )
         if args.empty?
-          @includes ||= [ '${config.ru}', '.jbundler/classpath.rb',
-                          '*file', '*file.lock',
-                          'lib/**', 'app/**', 'config/**', 'vendor/**' ]
+          @includes ||= default_includes
         else
           @includes = args
         end
@@ -31,7 +34,13 @@ module JRuby
           @excludes = args
         end
       end
-      
+
+      def default_includes
+        [ '${config.ru}', '.jbundler/classpath.rb',
+          '*file', '*file.lock',
+          'lib/**', 'app/**', 'config/**', 'vendor/**' ]
+      end
+
       def setup_gem_plugin
         config[ :includeRubyResources ] = includes unless includes.empty?
         config[ :excludeRubyResources ] = excludes unless excludes.empty?

@@ -6,9 +6,9 @@ build do
   directory 'pkg'
 end
 
-gem 'bundler', '1.7.7', :scope => :provided
+gem 'bundler', '${bundler.version}'#, :scope => :provided
 
-plugin :dependency, :phase => :package do
+plugin! :dependency, '2.5.1', :phase => :package do
   items = []
   File.read( 'Jarfile.lock' ).each_line do |l|
     data = l.strip.split(':')

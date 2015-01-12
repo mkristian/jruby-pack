@@ -1,6 +1,6 @@
 #-*- mode: ruby -*-
 
-require 'jruby/pack/runnable_dsl'
+require 'jruby/pack/jar_dsl'
 require 'jruby/pack/embedded_gems_dsl'
 require 'jruby/pack/war_dsl'
 
@@ -8,28 +8,23 @@ module JRuby
   module Pack
     class DSL < BaseDSL
 
-      def initialize( parent, &block )
+      def initialize( root, &block )
         super
       end
 
-      def war( &block )
+      def pack_war( &block )
         check
-        WarDSL.new( @parent, &block )
-      end
-
-      def runnable( &block )
-        check
-        RunnableDSL.new( @parent, &block )
+        WarDSL.new( root, &block )
       end
 
       def embedded_gems( &block )
         check
-        EmbeddedGemsDSL.new( @parent, &block )
+        EmbeddedGemsDSL.new( root, &block )
       end
 
-      def pack_it( &block )
+      def pack_jar( &block )
         check
-        PackItDSL.new( @parent, &block )
+        JarDSL.new( root, &block )
       end
 
       def check

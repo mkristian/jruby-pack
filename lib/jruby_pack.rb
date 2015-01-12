@@ -2,7 +2,7 @@
 
 require 'jruby/pack/dsl'
 
-module JRubyPack
+module JrubyPack
 
   def self.maven( parent, &block )
     JRuby::Pack::DSL.new( parent, &block )

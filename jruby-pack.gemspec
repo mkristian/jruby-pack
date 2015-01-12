@@ -22,4 +22,5 @@ END
   s.files += Dir['Gemfile*']
 
   s.add_runtime_dependency "ruby-maven", "~> 3.1.1"
+  s.add_runtime_dependency "maven-tools", "~> 1.0.8.dev"
 end
