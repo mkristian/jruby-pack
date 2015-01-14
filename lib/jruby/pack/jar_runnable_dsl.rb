@@ -32,7 +32,7 @@ module JRuby
       end
 
       def setupMain
-        prefix = @extracting ? 'ExtractingJar' : 'Jar'
+        prefix = @extracting ? 'Extracting' : 'Jar'
         properties[ 'jruby.main'] = "de.saumya.mojo.mains.#{prefix}Main"
       end
     end

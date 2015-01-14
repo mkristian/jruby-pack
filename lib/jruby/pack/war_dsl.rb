@@ -16,7 +16,7 @@ module JRuby
       end
 
       def jruby_rack( version = nil )
-        @jruby_rack ||= version || '1.1.14'
+        @jruby_rack ||= version || '1.1.18'
       end
       
       def web_xml( path = nil)
